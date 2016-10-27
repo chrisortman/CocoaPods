@@ -244,6 +244,11 @@ module Pod
             @xcconfig.to_hash['OTHER_SWIFT_FLAGS'].should.include '$(inherited) "-D" "COCOAPODS"'
           end
 
+          it 'uses the target definition swift version' do
+            @target_definition.stubs(:swift_version).returns('0.1')
+            @generator.send(:target_swift_version).should == '0.1'
+          end
+
           it 'sets EMBEDDED_CONTENT_CONTAINS_SWIFT when the target_swift_version is < 2.3' do
             @generator.send(:pod_targets).first.stubs(:uses_swift?).returns(true)
             @generator.stubs(:target_swift_version).returns('2.2')
@@ -275,17 +280,17 @@ module Pod
             @generator.generate.to_hash['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'].should == 'YES'
           end
 
-          it 'sets ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES to NO when there is no swift' do
+          it 'does not set ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES when there is no swift' do
             @generator.send(:pod_targets).first.stubs(:uses_swift?).returns(false)
             @generator.stubs(:target_swift_version).returns(nil)
-            @generator.generate.to_hash['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'].should == 'NO'
+            @generator.generate.to_hash['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'].nil?.should == true
           end
 
-          it 'sets ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES to NO when there is swift, but the target is an extension' do
+          it 'does not set ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES when there is swift, but the target is an extension' do
             @target.stubs(:requires_host_target?).returns(true)
             @generator.stubs(:target_swift_version).returns('2.3')
             @generator.send(:pod_targets).first.stubs(:uses_swift?).returns(true)
-            @generator.generate.to_hash['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'].should == 'NO'
+            @generator.generate.to_hash['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'].nil?.should == true
           end
 
           it 'does not set EMBEDDED_CONTENT_CONTAINS_SWIFT when there is swift 2.3 or higher' do

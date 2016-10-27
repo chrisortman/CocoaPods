@@ -13,6 +13,30 @@ To install release candidates run `[sudo] gem install cocoapods --pre`
 ##### Bug Fixes
 
 * None.  
+* Add support for running CocoaPods on Linux.  
+  [Samuel Giddins](https://github.com/segiddins)
+
+* Use native Ruby ASCII plist parsing and serialization, removing dependencies
+  on FFI, Xcode, and macOS.  
+  [Samuel Giddins](https://github.com/segiddins)
+
+##### Bug Fixes
+
+* Add target-device tvOS in copy_resources generator.  
+  [Konrad Feiler](https://github.com/Bersaelor)
+  [#6052](https://github.com/CocoaPods/CocoaPods/issues/6052)
+
+* Read the correct `SWIFT_VERSION` when generating target XCConfigs
+  [Ben Asher](https://github.com/benasher44)
+  [#6067](https://github.com/CocoaPods/CocoaPods/issues/6067)
+
+* Don't explicitly set `ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES` to NO
+  [Ben Asher](https://github.com/benasher44)
+  [#6064](https://github.com/CocoaPods/CocoaPods/issues/6064)
+
+* Redefine FOUNDATION_EXPORT for C-only pods in umbrella header 
+  [Chris Ballinger](https://github.com/chrisballinger)
+  [#6024](https://github.com/CocoaPods/CocoaPods/issues/6024)
 
 
 ## 1.1.1 (2016-10-20)
@@ -50,11 +74,13 @@ To install release candidates run `[sudo] gem install cocoapods --pre`
   [Orta Therox](https://github.com/orta)
   [#6049](https://github.com/CocoaPods/CocoaPods/pull/6049)
 
-
 ##### Bug Fixes
 
 * None.  
 
+* Redefine FOUNDATION_EXPORT for C-only pods in umbrella header 
+  [Chris Ballinger](https://github.com/chrisballinger)
+  [#6024](https://github.com/CocoaPods/CocoaPods/issues/6024)
 
 ## 1.1.0.rc.3 (2016-10-11)
 
@@ -192,7 +218,7 @@ To install release candidates run `[sudo] gem install cocoapods --pre`
 
 ##### Bug Fixes
 
-* Hash scope suffixes if they are over 50 characters to prevent file paths from being too long. 
+* Hash scope suffixes if they are over 50 characters to prevent file paths from being too long.  
   [Danielle Tomlinson](https://github.com/dantoml)
   [#5491](https://github.com/CocoaPods/CocoaPods/issues/5491)
 

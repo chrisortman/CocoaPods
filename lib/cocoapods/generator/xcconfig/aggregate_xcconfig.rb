@@ -88,9 +88,10 @@ module Pod
 
         protected
 
+        # @return String the SWIFT_VERSION of the target being integrated
+        #
         def target_swift_version
-          settings = target.native_target.resolved_build_setting('SWIFT_VERSION') unless target.native_target.nil?
-          settings.values.compact.uniq.first unless settings.nil?
+          target.target_definition.swift_version unless target.target_definition.swift_version.blank?
         end
 
         EMBED_STANDARD_LIBRARIES_MINIMUM_VERSION = Gem::Version.new('2.3')
@@ -109,17 +110,14 @@ module Pod
 
           swift_version = Gem::Version.new(target_swift_version)
           should_embed = !target.requires_host_target? && pod_targets.any?(&:uses_swift?)
-          embed_value = should_embed ? 'YES' : 'NO'
-
-          config = {
-            'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' => embed_value,
-            'EMBEDDED_CONTENT_CONTAINS_SWIFT' => embed_value,
-          }
-
-          if swift_version >= EMBED_STANDARD_LIBRARIES_MINIMUM_VERSION || !should_embed
-            config.delete('EMBEDDED_CONTENT_CONTAINS_SWIFT')
+          config = {}
+          if should_embed
+            if swift_version >= EMBED_STANDARD_LIBRARIES_MINIMUM_VERSION
+              config['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'YES'
+            else
+              config['EMBEDDED_CONTENT_CONTAINS_SWIFT'] = 'YES'
+            end
           end
-
           config
         end
 

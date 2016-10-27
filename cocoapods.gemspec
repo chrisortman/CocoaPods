@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'cocoapods-stats',       '>= 1.0.0', '< 2.0'
   s.add_runtime_dependency 'cocoapods-trunk',       '>= 1.1.1', '< 2.0'
   s.add_runtime_dependency 'cocoapods-try',         '>= 1.1.0', '< 2.0'
-  s.add_runtime_dependency 'molinillo',             '~> 0.5.1'
+  s.add_runtime_dependency 'molinillo',             '~> 0.5.1', '!= 0.5.2'
   s.add_runtime_dependency 'xcodeproj',             '>= 1.3.3', '< 2.0'
 
   ## Version 5 needs Ruby 2.2, so we specify an upper bound to stay compatible with system ruby
@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'fourflusher',   '~> 2.0.1'
   s.add_runtime_dependency 'gh_inspector',  '~> 1.0'
   s.add_runtime_dependency 'nap',           '~> 1.0'
+  s.add_runtime_dependency 'ruby-macho',    '~> 0.2.5'
 
   s.add_development_dependency 'bacon', '~> 1.1'
   s.add_development_dependency 'bundler', '~> 1.3'

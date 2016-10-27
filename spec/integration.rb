@@ -28,10 +28,10 @@
 #
 # - Have a way to track precisely the evolution of the artifacts (and of the
 #   UI) produced by CocoaPods (git diff of the after folders).
-# - Allow uses to submit pull requests with the environment necessary to
+# - Allow users to submit pull requests with the environment necessary to
 #   reproduce an issue.
 # - Have robust tests which don't depend on the programmatic interface of
-#   CocoaPods. These tests depend only the binary and its arguments an thus are
+#   CocoaPods. These tests depend only the binary and its arguments and thus are
 #   suitable for testing CP regardless of the implementation (they could even
 #   work for an Objective-C one)
 
@@ -47,7 +47,7 @@ require 'bundler/setup'
 
 require 'pretty_bacon'
 require 'colored'
-require 'clintegracon'
+require 'CLIntegracon'
 
 require 'cocoapods-core/lockfile'
 require 'cocoapods-core/yaml_helper'
@@ -126,11 +126,11 @@ describe_cli 'pod' do
   subject do |s|
     s.executable = "ruby #{ROOT + 'bin/pod'}"
     s.environment_vars = {
-      'CP_REPOS_DIR'             => ROOT + 'spec/fixtures/spec-repos',
-      'COCOAPODS_SKIP_CACHE'     => 'TRUE',
-      'XCODEPROJ_DISABLE_XCPROJ' => 'TRUE',
-      'CLAIDE_DISABLE_AUTO_WRAP' => 'TRUE',
-      'COCOAPODS_DISABLE_STATS'  => 'TRUE',
+      'CLAIDE_DISABLE_AUTO_WRAP'            => 'TRUE',
+      'COCOAPODS_DISABLE_STATS'             => 'TRUE',
+      'COCOAPODS_SKIP_CACHE'                => 'TRUE',
+      'COCOAPODS_VALIDATOR_SKIP_XCODEBUILD' => 'TRUE',
+      'CP_REPOS_DIR'                        => ROOT + 'spec/fixtures/spec-repos',
     }
     s.default_args = [
       '--verbose',
